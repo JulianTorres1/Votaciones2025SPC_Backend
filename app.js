@@ -2,6 +2,8 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const logger = require('./logger');
+const path = require("path"); // Asegura que el módulo path esté importado
+
 
 // Routes import
 const userRoutes = require('./routes/users');
@@ -10,6 +12,7 @@ const validationRoutes = require('./routes/validation');
 const routes = require('./routes');
 const solicitudes = require('./routes/solicitudes');
 const User = require('./routes/users');
+const votaciones = require('./routes/votaciones');
 
 // Middlewares import
 const authenticate = require('./middlewares/authenticate');
@@ -17,6 +20,9 @@ const disabled = require('./middlewares/disabled');
 
 // Application
 const app = express();
+
+app.use("/public", express.static(path.join(__dirname, "public")));
+
 
 // Rate limiting middleware
 const limiter = rateLimit({
@@ -67,6 +73,9 @@ app.use('/log', logRoutes);
 app.use('/validation', validationRoutes);
 app.use('/solicitudes', solicitudes);
 app.use('/users', User);
+app.use('/votaciones', votaciones);
+
+
 
 // Root routes
 // curl -X GET http://localhost:5005/welcome
