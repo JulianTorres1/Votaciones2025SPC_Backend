@@ -1,12 +1,14 @@
 const { getRounds } = require('bcryptjs');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
+require('dotenv').config();
 
 const sql = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "Salesianos2025**",
-    database: "sistema_votaciones",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
 });
 
 // Test the connection
