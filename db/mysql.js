@@ -32,7 +32,7 @@ const functions = {
      */
     async getRows(table) {
         const [rows] = await sql.query(`SELECT * FROM ${table}`);
-        console.log(rows);
+        console.log('GetRows Success!');
         return rows;
     },
 
@@ -78,7 +78,7 @@ const functions = {
      */
     
     async insertRow(table, data) {
-        console.log('Datos recibidos en insertRow:', data);
+        console.log('Datos recibidos en insertRow:');
     
         if (!data || typeof data !== 'object') {
             console.error('Error: Los datos proporcionados a insertRow son inválidos:', data);

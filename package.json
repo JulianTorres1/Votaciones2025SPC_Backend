@@ -25,5 +25,8 @@
     "nodemon": "^3.1.9",
     "postgres": "^3.4.4",
     "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

@@ -27,13 +27,13 @@ router.get("/getCandidatos", async (req, res) => {
         const results = await sql.functions.getRows("candidatos");
         console.log("Results get at:", Date()); // Log para verificar los resultados
 
-        console.log("Database Results:", results);
+        console.log("Users Send at:", Date()); // Log para verificar los resultados
         // Agregar la URL completa de la foto a cada candidato
         const candidatos = results.map(candidato => ({
             ...candidato,
             foto_url: `http://localhost:5005/${candidato.foto_url}` // Ajusta si la ruta de las fotos está en otra ubicación
         }));
-
+        
         res.json(candidatos);
     } catch (err) {
         console.error("Error fetching rows:", err); // Log para verificar el error
@@ -48,7 +48,7 @@ module.exports = router;
 // Ruta para crear una nueva solicitud
 router.post('/create', async (req, res) => {
     try {
-        console.log('Request body recibido:', req.body); // Log para verificar `req.body`
+        console.log('Request body recibido:');
         const data = req.body;
 
         // Validar que `data` no sea null, undefined o vacío
@@ -57,12 +57,12 @@ router.post('/create', async (req, res) => {
             return res.status(400).json({ error: 'El cuerpo de la solicitud está vacío o no es válido.' });
         }
 
-        console.log('Datos validados para insertar:', data); // Log para verificar `data`
+        console.log('Datos validados para insertar:'); // Log para verificar `data`
 
         const result = await sql.functions.insertRow('votaciones', data);
-        console.log('Resultado de la inserción:', result); // Log para verificar el resultado
+        console.log('Incercion Exitosas'); // Log para verificar el resultado
 
-        res.status(201).json({ message: 'Solicitud creada exitosamente', result });
+        res.status(201).json({ message: 'Solicitud creada exitosamente'});
     } catch (err) {
         console.error('Error creando la fila:', err);
         res.status(500).json({ error: err.message || 'Error interno del servidor' });

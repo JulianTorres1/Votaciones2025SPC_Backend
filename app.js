@@ -6,12 +6,12 @@ const path = require("path"); // Asegura que el módulo path esté importado
 
 
 // Routes import
-const userRoutes = require('./routes/users');
+//const userRoutes = require('./routes/users');
 const logRoutes = require('./routes/log');
-const validationRoutes = require('./routes/validation');
+//const validationRoutes = require('./routes/validation');
 const routes = require('./routes');
-const solicitudes = require('./routes/solicitudes');
-const User = require('./routes/users');
+//const solicitudes = require('./routes/solicitudes');
+//const User = require('./routes/users');
 const votaciones = require('./routes/votaciones');
 
 // Middlewares import
@@ -45,49 +45,17 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.status(200).json({
         status: 'operational',
-        message: 'Welcome to the SCP-API!',
-        features: [
-            '🔄 Routes handling',
-            '🔐 User authentication with JWT',
-            '💾 MySQL2 / Postgres basic functions',
-            '📧 Nodemailer included',
-            '🔧 Configuration with DotEnv',
-            '📝 Winston logging',
-            '📡 CORS enabled',
-            '🚫 Rate limiting',
-            '🔍 Joi validation',
-            '🛡️ Middleware ready',
-            '📦 Modular structure',
-            '🔒 Disabled route middleware',
-            '🚀 Works out of the box!'
-        ]
+        message: 'Votaciones Salesianas API is running',
+        version: '1.0.0'
     });
 });
 
 // Those routes are only examples routes to inspire you or to get you started faster.
 // You are not forced to use them, and can erase all routes in order to make your own.
 // Nested routes (routes are stored in the routes folder)
-app.use('/users', userRoutes);
-app.use('/api', authenticate, routes); // '/api' routes are protected with the 'authenticate' middleware
-app.use('/log', logRoutes);
-app.use('/validation', validationRoutes);
-app.use('/solicitudes', solicitudes);
-app.use('/users', User);
+
 app.use('/votaciones', votaciones);
 
-
-
-// Root routes
-// curl -X GET http://localhost:5005/welcome
-app.get('/welcome', (req, res) => {
-    res.json({ message: 'Welcome' });
-});
-
-// curl -X GET http://localhost:5005/disabled
-// This route is disabled by the middleware
-app.get('/disabled', disabled, (req, res) => {
-    res.json({ message: 'This route is disabled, you cannot see this message.' });
-});
 
 const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
