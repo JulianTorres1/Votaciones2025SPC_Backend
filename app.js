@@ -21,7 +21,8 @@ const disabled = require('./middlewares/disabled');
 // Application
 const app = express();
 
-app.use("/public", express.static(path.join(__dirname, "public")));
+// Servir archivos estáticos desde la carpeta 'public'
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 // Rate limiting middleware

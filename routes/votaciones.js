@@ -31,7 +31,7 @@ router.get("/getCandidatos", async (req, res) => {
         // Agregar la URL completa de la foto a cada candidato
         const candidatos = results.map(candidato => ({
             ...candidato,
-            foto_url: `http://localhost:5005/${candidato.foto_url}` // Ajusta si la ruta de las fotos está en otra ubicación
+            foto_url: `http://192.168.1.58:5005/${candidato.foto_url}` // Ajusta si la ruta de las fotos está en otra ubicación
         }));
         
         res.json(candidatos);
