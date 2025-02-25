@@ -100,6 +100,23 @@ const functions = {
         }
     },
     
+    async getCandidateVotes() {
+        const query = `
+            SELECT c.nombre AS candidato, c.grupo, COUNT(v.id_voto) AS total_votos
+            FROM candidatos c
+            LEFT JOIN votaciones v ON c.id_candidato = v.id_candidato
+            GROUP BY c.id_candidato, c.nombre, c.grupo
+            ORDER BY total_votos DESC;
+        `;
+    
+        try {
+            const [rows] = await sql.query(query);
+            return rows;
+        } catch (error) {
+            console.error('Error ejecutando la consulta de votos:', error);
+            throw error;
+        }
+    },
 
     async deleteRow(table, selector) {
         const [result] = await sql.query(`DELETE FROM ${table} WHERE ?`, [selector]);

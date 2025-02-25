@@ -41,6 +41,20 @@ router.get("/getCandidatos", async (req, res) => {
     }
 });
 
+// Ruta para obtener la cantidad de votos por candidato
+router.get('/getCandidateVotes', async (req, res) => {
+    try {
+        console.log("Fetching candidate votes...");
+        const results = await sql.functions.getCandidateVotes();
+        console.log("Candidate votes retrieved at:", Date()); // Log para verificar los resultados
+        res.json(results);
+    } catch (err) {
+        console.error("Error fetching candidate votes:", err);
+        res.status(500).send(err);
+    }
+});
+
+
 module.exports = router;
 
 
