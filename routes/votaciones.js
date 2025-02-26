@@ -62,7 +62,6 @@ module.exports = router;
 // Ruta para crear una nueva solicitud
 router.post('/create', async (req, res) => {
     try {
-        console.log('Request body recibido:');
         const data = req.body;
 
         // Validar que `data` no sea null, undefined o vacío
@@ -70,8 +69,6 @@ router.post('/create', async (req, res) => {
             console.error('Error: El cuerpo de la solicitud está vacío o no es válido:', data);
             return res.status(400).json({ error: 'El cuerpo de la solicitud está vacío o no es válido.' });
         }
-
-        console.log('Datos validados para insertar:'); // Log para verificar `data`
 
         const result = await sql.functions.insertRow('votaciones', data);
         console.log('Incercion Exitosas'); // Log para verificar el resultado

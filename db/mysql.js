@@ -80,7 +80,6 @@ const functions = {
      */
     
     async insertRow(table, data) {
-        console.log('Datos recibidos en insertRow:');
     
         if (!data || typeof data !== 'object') {
             console.error('Error: Los datos proporcionados a insertRow son inválidos:', data);
