@@ -1,5 +1,5 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit');
+//const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const logger = require('./logger');
 const path = require("path"); // Asegura que el módulo path esté importado
