@@ -33,7 +33,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 // });
 
 // Apply rate limiting to all requests
-app.use(limiter);
+// app.use(limiter);
 
 // Enable CORS
 app.use(cors());
