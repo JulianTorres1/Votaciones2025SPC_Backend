@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const sql = require('../db/mysql');
+require('dotenv').config();
+
+const apiHost = process.env.API_HOST || 'http://localhost';
+
 
 function getDateTime() {
     const date = new Date();
@@ -10,9 +14,7 @@ function getDateTime() {
 // Ruta para obtener todas las solicitudes
 router.get('/get', async (req, res) => {
     try {
-        console.log('Fetching rows from Votaciones table...');
         const results = await sql.functions.getRows('votaciones');
-        console.log('Results get at:', Date() ); // Log para verificar los resultados
         res.json(results);
     } catch (err) {
         console.error('Error fetching rows:', err); // Log para verificar el error
@@ -23,15 +25,10 @@ router.get('/get', async (req, res) => {
 // Ruta para obtener todas las solicitudes con la foto completa
 router.get("/getCandidatos", async (req, res) => {
     try {
-        console.log("Fetching rows from Candidatos table...");
         const results = await sql.functions.getRows("candidatos");
-        console.log("Results get at:", Date()); // Log para verificar los resultados
-
-        console.log("Users Send at:", Date()); // Log para verificar los resultados
-        // Agregar la URL completa de la foto a cada candidato
         const candidatos = results.map(candidato => ({
             ...candidato,
-            foto_url: `http://192.168.1.58:5005/${candidato.foto_url}` // Ajusta si la ruta de las fotos está en otra ubicación
+            foto_url: `${apiHost}:5005/${candidato.foto_url}` // Ajusta si la ruta de las fotos está en otra ubicación
         }));
         
         res.json(candidatos);
@@ -44,7 +41,6 @@ router.get("/getCandidatos", async (req, res) => {
 // Ruta para obtener la cantidad de votos por candidato
 router.get('/getCandidateVotes', async (req, res) => {
     try {
-        console.log("Fetching candidate votes...");
         const results = await sql.functions.getCandidateVotes();
         console.log("Candidate votes retrieved at:", Date()); // Log para verificar los resultados
         res.json(results);
@@ -71,7 +67,7 @@ router.post('/create', async (req, res) => {
         }
 
         const result = await sql.functions.insertRow('votaciones', data);
-        console.log('Incercion Exitosas'); // Log para verificar el resultado
+        console.log('Incercion Exitosas', Date()); // Log para verificar el resultado
 
         res.status(201).json({ message: 'Solicitud creada exitosamente'});
     } catch (err) {

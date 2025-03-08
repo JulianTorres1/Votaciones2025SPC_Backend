@@ -1,7 +1,6 @@
 const { getRounds } = require('bcryptjs');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
-require('dotenv').config();
 
 const sql = mysql.createPool({
     host: process.env.DB_HOST,
